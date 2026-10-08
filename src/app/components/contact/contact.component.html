@@ -2,7 +2,7 @@
   <div class="container">
     <div class="contact-grid">
       
-      <div class="contact-info">
+      <div class="contact-info reveal-left">
         <span class="section-eyebrow">START A PROJECT</span>
         <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">Have an Idea?</h2>
         <p class="section-desc" style="text-align: left; margin-bottom: 2rem;">
@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <div class="contact-form-container">
+      <div class="contact-form-container reveal-right">
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form" *ngIf="!isSubmitted">
           <div class="form-row">
             <div class="form-group">

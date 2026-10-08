@@ -1,7 +1,6 @@
 .header {
   background-color: var(--bg-white);
   border-bottom: 1px solid var(--border-color);
-  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -11,12 +10,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 90px;
 }
 
 .logo {
   display: flex;
   flex-direction: column;
   line-height: 1;
+}
+
+.logo-img {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
 }
 
 .logo-pro {
@@ -75,12 +81,16 @@
 }
 
 @media (max-width: 768px) {
-  .desktop-nav, .desktop-only {
+
+  .desktop-nav,
+  .desktop-only {
     display: none;
   }
+
   .mobile-toggle {
     display: block;
   }
+
   .mobile-menu {
     display: block;
   }

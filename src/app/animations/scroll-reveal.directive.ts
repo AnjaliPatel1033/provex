@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appScrollReveal]',
+  selector: '.reveal-up, .reveal-left, .reveal-right, .reveal-fade',
   standalone: true
 })
 export class ScrollRevealDirective implements OnInit, OnDestroy {

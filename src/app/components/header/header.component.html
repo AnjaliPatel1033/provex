@@ -1,16 +1,16 @@
 <header class="header">
   <div class="container header-inner">
     <a href="#" class="logo">
-      <span class="logo-pro">PROVE</span><span class="logo-x">X</span>
-      <span class="logo-sub">INDUSTRIES</span>
+      <img src="images/logo.png" alt="Provex Industries" class="logo-img">
     </a>
 
     <nav class="desktop-nav">
       <ul>
+        <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#industries">Industries</a></li>
       </ul>
     </nav>
 
@@ -22,13 +22,14 @@
       ☰
     </button>
   </div>
-  
+
   <div class="mobile-menu" *ngIf="isMobileMenuOpen">
     <ul>
+      <li><a href="#about" (click)="toggleMobileMenu()">About</a></li>
       <li><a href="#services" (click)="toggleMobileMenu()">Services</a></li>
       <li><a href="#process" (click)="toggleMobileMenu()">Process</a></li>
       <li><a href="#projects" (click)="toggleMobileMenu()">Projects</a></li>
-      <li><a href="#about" (click)="toggleMobileMenu()">About</a></li>
+      <li><a href="#industries" (click)="toggleMobileMenu()">Industries</a></li>
       <li><a href="#contact" class="btn btn-primary" (click)="toggleMobileMenu()">Start a Project</a></li>
     </ul>
   </div>
