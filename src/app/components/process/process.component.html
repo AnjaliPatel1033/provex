@@ -1,0 +1,29 @@
+<section id="process" class="process-split">
+  <div class="split-left">
+    <div class="sticky-content">
+      <span class="section-eyebrow">OUR PROCESS</span>
+      <h2 class="section-title">A Clear Path<br>From Idea to<br>Production.</h2>
+      
+      <p class="section-intro">
+        At Provex, we follow a rigorous and disciplined approach to ensure every product we engineer is fully validated and ready for market.
+      </p>
+      
+      <a href="#contact" class="btn btn-primary btn-lg mt-4">START YOUR PROJECT</a>
+    </div>
+  </div>
+  
+  <div class="split-right">
+    <div class="process-cards">
+      
+      <div class="process-card" *ngFor="let step of steps; let i = index">
+        <div class="card-number">0{{ i + 1 }}</div>
+        <div class="card-content">
+          <h3 class="card-title">{{ step.title }}</h3>
+          <p class="card-desc">{{ step.desc }}</p>
+        </div>
+        <div class="card-arrow">&rarr;</div>
+      </div>
+      
+    </div>
+  </div>
+</section>

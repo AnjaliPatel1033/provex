@@ -1,0 +1,167 @@
+.process-split {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+.split-left {
+  flex: 0 0 40%;
+  background-color: var(--bg-light);
+  padding: 6rem 4rem;
+  position: relative;
+}
+
+.sticky-content {
+  position: sticky;
+  top: 6rem; /* stick to top when scrolling right side */
+}
+
+.section-eyebrow {
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 0.25rem;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.section-intro {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 90%;
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.split-right {
+  flex: 0 0 60%;
+  padding: 6rem 4rem;
+  background-color: var(--bg-dark);
+}
+
+.process-cards {
+  display: flex;
+  flex-direction: column;
+  /* Remove gap so they can stack cleanly if needed, or keep a small gap */
+  gap: 2rem;
+  padding-bottom: 10rem; /* extra space to allow scrolling through the stack */
+}
+
+.process-card {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-dark-secondary);
+  padding: 2.5rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.2); /* shadow to separate stacked cards */
+  
+  /* Stacking offsets */
+  &:nth-child(1) { top: 6rem; z-index: 10; }
+  &:nth-child(2) { top: 8rem; z-index: 20; }
+  &:nth-child(3) { top: 10rem; z-index: 30; }
+  &:nth-child(4) { top: 12rem; z-index: 40; }
+  &:nth-child(5) { top: 14rem; z-index: 50; }
+  &:nth-child(6) { top: 16rem; z-index: 60; }
+  
+  &:hover {
+    transform: translateX(10px);
+    background-color: #232f3e;
+    
+    .card-arrow {
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+  }
+}
+
+.card-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.1);
+  margin-right: 2rem;
+  min-width: 80px;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  color: white;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.card-desc {
+  color: #94a3b8;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.card-arrow {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.mt-4 {
+  margin-top: 2rem;
+}
+
+@media (max-width: 992px) {
+  .process-split {
+    flex-direction: column;
+  }
+  
+  .split-left, .split-right {
+    flex: none;
+    width: 100%;
+    padding: 4rem 2rem;
+  }
+  
+  .sticky-content {
+    position: relative;
+    top: 0;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .process-card {
+    padding: 1.5rem;
+  }
+  
+  .card-number {
+    font-size: 2rem;
+    margin-right: 1rem;
+    min-width: 50px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+  }
+}

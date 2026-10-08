@@ -1,0 +1,31 @@
+<section id="industries" class="industries-split">
+  <div class="split-left">
+    <div class="sticky-content">
+      <span class="section-eyebrow">INDUSTRIES</span>
+      <h2 class="section-title">Built For<br>Engineering-Driven<br>Businesses.</h2>
+      
+      <p class="section-intro">
+        We possess deep experience across a multitude of product-centric sectors, offering tailored solutions to complex manufacturing challenges.
+      </p>
+      
+      <a href="#projects" class="btn btn-primary btn-lg mt-4">VIEW ALL INDUSTRIES</a>
+    </div>
+  </div>
+  
+  <div class="split-right">
+    <div class="industries-grid">
+      
+      <div class="industry-card" *ngFor="let industry of industries">
+        <div class="card-image" [style.backgroundImage]="'url(' + industry.imageUrl + ')'">
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{{ industry.title }}</h3>
+          <p class="card-desc">{{ industry.description }}</p>
+          <div class="card-arrow">&rarr;</div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

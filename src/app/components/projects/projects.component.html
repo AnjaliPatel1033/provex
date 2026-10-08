@@ -1,0 +1,25 @@
+<section id="projects" class="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-eyebrow">PORTFOLIO</span>
+      <h2 class="section-title">Selected Projects</h2>
+      <p class="section-desc">
+        Replace these examples with your own projects, CAD models, prototypes and engineering case studies.
+      </p>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card" *ngFor="let project of projects">
+        <div class="placeholder-box project-image">
+          YOUR IMAGE HERE
+        </div>
+        <div class="project-content">
+          <span class="project-tag">{{ project.tag }}</span>
+          <h3 class="project-title">{{ project.title }}</h3>
+          <p class="project-desc">Add a short description about what this project entailed and the final result.</p>
+          <a href="#" class="btn btn-primary btn-sm">View Project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
