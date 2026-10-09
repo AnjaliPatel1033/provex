@@ -1,122 +1,200 @@
-.hero-split {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--bg-dark);
+.hero-scroll-container {
+  --scroll: 0;
+  --frame-1: 1; --frame-2: 0; --frame-3: 0; --frame-4: 0; --frame-5: 0; --frame-6: 0; --frame-7: 0;
+  --text-1: 1; --text-2: 0; --text-3: 0;
+  --scale-2: 1;
+  
+  height: 500vh; /* Extremely long 500vh scroll gives the cinematic feeling */
+  background-color: #000;
+  margin: 0 !important; 
+  padding: 0 !important;
 }
 
-.split-col {
-  flex: 1;
-  position: relative;
-  height: 100%;
+.sticky-hero {
+  position: sticky;
+  top: 0; 
+  height: 100vh; 
+  width: 100%;
   overflow: hidden;
-  transition: flex 0.5s ease;
-  border-right: 1px solid rgba(255,255,255,0.1);
-  
-  &:last-child {
-    border-right: none;
-  }
-  
-  &:hover {
-    flex: 1.2;
-    
-    .split-bg {
-      transform: scale(1.05);
-    }
-    
-    .split-overlay {
-      background: linear-gradient(to bottom, rgba(18, 25, 33, 0.4) 0%, rgba(18, 25, 33, 0.8) 100%);
-    }
-  }
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
-.split-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.8s ease;
+.sequence-container {
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; height: 100%; 
   z-index: 1;
+  /* Scaled up to 1.5 to ensure the image corners don't show when it rotates 60 degrees! */
+  transform: scale(calc(1.5 + var(--scroll) * 0.5)) rotate(calc(var(--scroll) * 60deg));
 }
 
-.split-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(18, 25, 33, 0.6) 0%, rgba(18, 25, 33, 0.95) 100%);
+.seq-frame {
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: opacity 0.1s ease-out;
+  will-change: opacity;
+}
+
+/* Opacity values are dynamically injected via TypeScript */
+.frame-1 { opacity: var(--frame-1); }
+.frame-2 { opacity: var(--frame-2); }
+.frame-3 { opacity: var(--frame-3); }
+.frame-4 { opacity: var(--frame-4); }
+.frame-5 { opacity: var(--frame-5); }
+.frame-6 { opacity: var(--frame-6); }
+.frame-7 { opacity: var(--frame-7); }
+
+.cinematic-vignette {
+  position: absolute; 
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 70%, #000 100%);
   z-index: 2;
-  transition: background 0.5s ease;
+  pointer-events: none;
 }
 
-.split-content {
+.cinematic-text {
   position: absolute;
-  bottom: 10%;
-  left: 0;
+  z-index: 10;
+  text-align: center;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  pointer-events: none;
   width: 100%;
-  padding: 0 2.5rem;
-  z-index: 3;
-  color: white;
-  
-  h2 {
-    font-size: 2.25rem;
-    font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 2.5rem;
-    color: white;
-  }
 }
 
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 30px;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+.gradient-text {
+  font-size: 10rem; /* Restored massive size for Precision and Power */
+  font-weight: 900;
+  background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0;
+  line-height: 1.1;
+  filter: drop-shadow(0 4px 20px rgba(0,0,0,0.9));
+}
+
+.cinematic-text p {
+  color: #f8fafc;
+  font-size: 1.25rem;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  
-  &:hover {
-    background-color: white;
-    color: var(--bg-dark);
-    border-color: white;
-  }
+  margin-top: 1rem;
+  text-shadow: 0 4px 15px rgba(0,0,0,1);
+}
+
+/* 
+  Text spacing fixed! They now use viewport height (vh) to remain perfectly responsive across all devices!
+*/
+.text-1 {
+  opacity: var(--text-1);
+  transform: translateY(calc((var(--scroll) - 0) * -150vh));
+}
+
+.text-2 {
+  opacity: var(--text-2);
+  transform: translateY(calc((var(--scroll) - 0.5) * -150vh)) scale(var(--scale-2));
+}
+
+.text-3 {
+  opacity: var(--text-3);
+  /* Shifted upwards by -12vh so it sits safely above the About Us overlap and the buttons are fully visible! */
+  transform: translateY(calc((var(--scroll) - 1) * -150vh - 12vh));
+  pointer-events: auto;
+  align-items: flex-start; /* Left-align the final phase like the image! */
+  text-align: left;
+  padding: 0 10%;
+}
+
+.text-3 .gradient-text {
+  font-size: 5rem; /* Slightly smaller to ensure it fits laptops without hitting the header */
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+
+.hero-actions {
+  margin-top: 1rem; /* Tighter margin to save vertical space */
+  pointer-events: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+/* Fix visibility of the secondary button against the dark cinematic background */
+.hero-actions .btn-outline {
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-actions .btn-outline:hover {
+  border-color: white !important;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hero-eyebrow {
+  display: block;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.final-desc {
+  color: #cbd5e1 !important;
+  font-size: 1.25rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: none !important;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* --- Responsive Media Queries --- */
+
+@media (max-width: 1200px) {
+  .gradient-text { font-size: 8rem; }
+  .text-3 .gradient-text { font-size: 4.5rem; }
 }
 
 @media (max-width: 992px) {
-  .hero-split {
+  .gradient-text { font-size: 6rem; }
+  .text-3 .gradient-text { font-size: 3.5rem; }
+  .cinematic-text p { font-size: 1rem; letter-spacing: 0.3em; }
+  .text-3 { padding: 0 5%; }
+}
+
+@media (max-width: 768px) {
+  .gradient-text { font-size: 4rem; }
+  .text-3 .gradient-text { font-size: 2.75rem; }
+  .cinematic-text p { font-size: 0.875rem; letter-spacing: 0.2em; }
+  .final-desc { font-size: 1rem !important; }
+  
+  .hero-actions {
     flex-direction: column;
-    height: auto;
-    min-height: 100vh;
+    width: 100%;
+    max-width: 300px;
   }
   
-  .split-col {
-    height: 25vh;
-    border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+  .hero-actions .btn {
+    width: 100%;
+    text-align: center;
   }
   
-  .split-content {
-    bottom: 50%;
-    transform: translateY(50%);
-    display: flex;
-    justify-content: space-between;
+  .text-3 {
+    padding: 0 1rem;
     align-items: center;
-    
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0;
-      br { display: none; }
-    }
+    text-align: center;
   }
+}
+
+@media (max-width: 480px) {
+  .gradient-text { font-size: 3rem; }
+  .text-3 .gradient-text { font-size: 2.25rem; }
+  .cinematic-text p { letter-spacing: 0.1em; }
+  .hero-eyebrow { font-size: 0.875rem; letter-spacing: 0.1em; }
 }

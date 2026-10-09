@@ -1,9 +1,20 @@
 .header {
-  background-color: var(--bg-white);
-  border-bottom: 1px solid var(--border-color);
-  position: sticky;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  position: fixed;
   top: 0;
-  z-index: 100;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.4s ease;
+}
+
+.header.scrolled {
+  background-color: rgba(11, 15, 25, 0.7); /* Dark premium glass */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .header-inner {
@@ -11,6 +22,11 @@
   justify-content: space-between;
   align-items: center;
   height: 90px;
+  transition: height 0.4s ease;
+}
+
+.header.scrolled .header-inner {
+  height: 70px; /* Compress the header slightly when scrolling */
 }
 
 .logo {
@@ -20,28 +36,17 @@
 }
 
 .logo-img {
-  max-height: 80px;
+  max-height: 60px;
   width: auto;
   object-fit: contain;
+  transition: all 0.4s ease;
+  /* Make the dark logo pure white against the cinematic background */
+  filter: brightness(0) invert(1);
 }
 
-.logo-pro {
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: var(--text-main);
-}
-
-.logo-x {
-  font-weight: 800;
-  font-size: 1.25rem;
-  color: var(--primary);
-}
-
-.logo-sub {
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  margin-top: 2px;
+.header.scrolled .logo-img {
+  max-height: 50px;
+  /* Keeps the logo white on the dark glass background */
 }
 
 .desktop-nav ul {
@@ -50,9 +55,12 @@
 }
 
 .desktop-nav a {
-  color: var(--text-main);
+  color: #ffffff; /* White text for cinematic background */
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
 }
 
 .desktop-nav a:hover {
@@ -65,6 +73,8 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: #ffffff;
+  transition: color 0.3s ease;
 }
 
 .mobile-menu {
