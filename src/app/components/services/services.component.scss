@@ -69,5 +69,17 @@
 @media (max-width: 768px) {
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+
+  .service-card::before {
+    top: -0.4rem;
+    left: 0;
+    width: 100%;
+  }
+
+  .service-card-inner {
+    padding: 1.5rem 15px;
   }
 }

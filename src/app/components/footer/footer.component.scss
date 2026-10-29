@@ -71,18 +71,31 @@
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: 3rem 0 2rem;
+  }
+
   .footer-content {
     flex-direction: column;
+    gap: 2rem;
   }
   
   .footer-links {
     flex-wrap: wrap;
-    gap: 2rem 4rem;
+    gap: 2rem 2.5rem;
   }
   
   .footer-bottom {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 }

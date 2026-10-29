@@ -1,29 +1,115 @@
-<section id="about" class="about-cinematic">
-  <div class="about-split">
+<section id="about" class="about-section">
+  <div class="container">
     
-    <div class="about-content">
-      <span class="section-eyebrow">Let Me Introduce</span>
-      <h2 class="section-title">Our Company</h2>
+    <!-- Clean 2-Column Split -->
+    <div class="about-grid">
       
-      <p class="about-desc">
-        For over 10 years, Provex Industries has been building relationships and projects that last. We build safe environments and eco-friendly solutions in the communities in which we work. Most importantly, we build strong relationships that allow us to build anything, anywhere. No matter the job, we go beyond building.
-      </p>
-      
-      <div class="play-button-wrapper">
-        <a href="#" class="play-btn">
-          <div class="play-icon-container">
-            <svg viewBox="0 0 24 24" fill="currentColor" class="play-icon">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+      <!-- Left Content Column -->
+      <div class="about-content">
+        <span class="section-eyebrow">ABOUT US</span>
+        <h2 class="section-title">
+          Engineering Precision.<br>
+          <span class="title-highlight">Delivering Excellence.</span>
+        </h2>
+        
+        <p class="about-text">
+          At Provex Industries, we transform complex engineering concepts into high-precision, 
+          market-ready physical components. With advanced 5-axis CNC machining, micro-wire EDM, 
+          and certified cleanroom metrology, we manufacture components that perform under extreme conditions.
+        </p>
+
+        <!-- Concise Highlights -->
+        <div class="about-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="highlight-info">
+              <h4>Sub-Micron Accuracy</h4>
+              <p>Tight tolerances down to ±0.001mm in tough superalloys.</p>
+            </div>
           </div>
-          <span class="play-text">Watch Video</span>
-        </a>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="highlight-info">
+              <h4>Rapid Prototyping to Scale</h4>
+              <p>From initial proof-of-concept in 72 hours to automated volume runs.</p>
+            </div>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <div class="highlight-info">
+              <h4>Certified Quality Assurance</h4>
+              <p>100% optical CMM inspection with complete material traceability.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-action">
+          <a href="#services" class="btn btn-primary">
+            <span>Explore Our Capabilities</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </a>
+        </div>
       </div>
+
+      <!-- Right Visual Column -->
+      <div class="about-visual">
+        <div class="visual-wrapper">
+          <img src="images/about-bg.jpg" alt="Provex Precision CNC Machined Component" class="about-img">
+          
+          <!-- Floating Badge -->
+          <div class="floating-badge">
+            <div class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div class="badge-text">
+              <span class="badge-val">ISO 9001 &amp; AS9100</span>
+              <span class="badge-lbl">Certified Quality Standards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-    
-    <div class="about-image-wrapper">
-      <img src="images/about-bg.jpg" alt="Provex Industry Engineering" class="about-image">
-      <div class="image-overlay"></div>
+
+    <!-- Clean Stats Strip -->
+    <div class="stats-strip">
+      <div class="stat-box">
+        <div class="stat-number">{{ yearsCount }}<span>+</span></div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">{{ projectsCount }}<span>+</span></div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">±{{ toleranceDev }}<span>mm</span></div>
+        <div class="stat-label">Precision Tolerance</div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-number">{{ qualityRate }}<span>%</span></div>
+        <div class="stat-label">Quality Compliance</div>
+      </div>
     </div>
 
   </div>

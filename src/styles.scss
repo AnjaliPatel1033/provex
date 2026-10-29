@@ -35,12 +35,25 @@ html {
   font-family: var(--font-main);
   color: var(--text-main);
   scroll-behavior: smooth;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
   background-color: var(--bg-white);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 a {
@@ -59,8 +72,14 @@ img {
 
 .container {
   max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 0 1.5rem;
+
+  @media (max-width: 768px) {
+    padding: 0 15px; /* 15px space on left and right for mobile */
+  }
 }
 
 .logo-img {

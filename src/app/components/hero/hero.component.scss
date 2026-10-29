@@ -1,13 +1,16 @@
 .hero-scroll-container {
   --scroll: 0;
-  --frame-1: 1; --frame-2: 0; --frame-3: 0; --frame-4: 0; --frame-5: 0; --frame-6: 0; --frame-7: 0;
   --text-1: 1; --text-2: 0; --text-3: 0;
   --scale-2: 1;
   
-  height: 500vh; /* Extremely long 500vh scroll gives the cinematic feeling */
+  height: 500vh; /* Smooth, luxurious scrub speed across 120 frames */
   background-color: #000;
   margin: 0 !important; 
   padding: 0 !important;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .sticky-hero {
@@ -15,10 +18,12 @@
   top: 0; 
   height: 100vh; 
   width: 100%;
+  max-width: 100%;
   overflow: hidden;
   display: flex; 
   align-items: center; 
   justify-content: center;
+  background-color: #000;
 }
 
 .sequence-container {
@@ -26,104 +31,115 @@
   top: 0; left: 0; 
   width: 100%; height: 100%; 
   z-index: 1;
-  /* Scaled up to 1.5 to ensure the image corners don't show when it rotates 60 degrees! */
-  transform: scale(calc(1.5 + var(--scroll) * 0.5)) rotate(calc(var(--scroll) * 60deg));
 }
 
-.seq-frame {
-  position: absolute; 
-  top: 0; left: 0; 
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: opacity 0.1s ease-out;
-  will-change: opacity;
+.seq-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-
-/* Opacity values are dynamically injected via TypeScript */
-.frame-1 { opacity: var(--frame-1); }
-.frame-2 { opacity: var(--frame-2); }
-.frame-3 { opacity: var(--frame-3); }
-.frame-4 { opacity: var(--frame-4); }
-.frame-5 { opacity: var(--frame-5); }
-.frame-6 { opacity: var(--frame-6); }
-.frame-7 { opacity: var(--frame-7); }
 
 .cinematic-vignette {
   position: absolute; 
   top: 0; left: 0; 
   width: 100%; height: 100%;
-  background: radial-gradient(circle at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 70%, #000 100%);
+  background: 
+    radial-gradient(circle at 62% 48%, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.65) 60%, #000 95%),
+    linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0.1) 70%, rgba(0,0,0,0.7) 100%),
+    linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 18%, transparent 78%, #000 100%);
   z-index: 2;
   pointer-events: none;
 }
 
 .cinematic-text {
   position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
   z-index: 10;
   text-align: center;
   display: flex; 
   flex-direction: column; 
   align-items: center;
   pointer-events: none;
-  width: 100%;
 }
 
 .gradient-text {
-  font-size: 10rem; /* Restored massive size for Precision and Power */
+  font-size: clamp(2.2rem, 12vw, 10rem);
   font-weight: 900;
   background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0;
-  line-height: 1.1;
+  line-height: 1.05;
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.9));
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .cinematic-text p {
   color: #f8fafc;
-  font-size: 1.25rem;
-  letter-spacing: 0.4em;
+  font-size: clamp(0.7rem, 2.5vw, 1.25rem);
+  letter-spacing: clamp(0.08em, 1.2vw, 0.4em);
   text-transform: uppercase;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   text-shadow: 0 4px 15px rgba(0,0,0,1);
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
 }
 
 /* 
-  Text spacing fixed! They now use viewport height (vh) to remain perfectly responsive across all devices!
+  Explicit top: 50% centering with smooth scroll-driven vertical motion
 */
 .text-1 {
   opacity: var(--text-1);
-  transform: translateY(calc((var(--scroll) - 0) * -150vh));
+  transform: translateY(calc(-50% + (var(--scroll) - 0) * -150vh));
 }
 
 .text-2 {
   opacity: var(--text-2);
-  transform: translateY(calc((var(--scroll) - 0.5) * -150vh)) scale(var(--scale-2));
+  transform: translateY(calc(-50% + (var(--scroll) - 0.48) * -150vh)) scale(var(--scale-2));
 }
 
 .text-3 {
   opacity: var(--text-3);
-  /* Shifted upwards by -12vh so it sits safely above the About Us overlap and the buttons are fully visible! */
-  transform: translateY(calc((var(--scroll) - 1) * -150vh - 12vh));
-  pointer-events: auto;
-  align-items: flex-start; /* Left-align the final phase like the image! */
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  transform: translateY(calc(-50% + (var(--scroll) - 1) * -80vh));
+  pointer-events: none;
+  align-items: flex-start;
   text-align: left;
-  padding: 0 10%;
+  padding: 0 8%;
+  max-width: 1400px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .text-3 .gradient-text {
-  font-size: 5rem; /* Slightly smaller to ensure it fits laptops without hitting the header */
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+  font-size: clamp(1.75rem, 6vw, 4.25rem);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+  line-height: 1.15;
 }
 
 .hero-actions {
-  margin-top: 1rem; /* Tighter margin to save vertical space */
-  pointer-events: auto;
+  margin-top: 1.5rem;
+  pointer-events: var(--cta-pointer, none);
   display: flex;
-  gap: 1rem;
+  gap: 1.25rem;
+  max-width: 100%;
 }
 
-/* Fix visibility of the secondary button against the dark cinematic background */
 .hero-actions .btn-outline {
   color: white !important;
   border-color: rgba(255, 255, 255, 0.4) !important;
@@ -137,18 +153,18 @@
 
 .hero-eyebrow {
   display: block;
-  font-size: 1rem;
-  letter-spacing: 0.2em;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  letter-spacing: 0.15em;
   font-weight: 700;
   color: #60a5fa;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   text-transform: uppercase;
 }
 
 .final-desc {
   color: #cbd5e1 !important;
-  font-size: 1.25rem !important;
-  letter-spacing: 0.1em !important;
+  font-size: clamp(0.9rem, 2vw, 1.25rem) !important;
+  letter-spacing: 0.05em !important;
   text-transform: none !important;
   max-width: 600px;
   line-height: 1.6;
@@ -157,44 +173,67 @@
 /* --- Responsive Media Queries --- */
 
 @media (max-width: 1200px) {
-  .gradient-text { font-size: 8rem; }
-  .text-3 .gradient-text { font-size: 4.5rem; }
+  .text-3 { padding: 0 6%; }
 }
 
 @media (max-width: 992px) {
-  .gradient-text { font-size: 6rem; }
-  .text-3 .gradient-text { font-size: 3.5rem; }
-  .cinematic-text p { font-size: 1rem; letter-spacing: 0.3em; }
   .text-3 { padding: 0 5%; }
 }
 
 @media (max-width: 768px) {
-  .gradient-text { font-size: 4rem; }
-  .text-3 .gradient-text { font-size: 2.75rem; }
-  .cinematic-text p { font-size: 0.875rem; letter-spacing: 0.2em; }
-  .final-desc { font-size: 1rem !important; }
+  .text-3 {
+    padding: 0 1.25rem;
+    align-items: center;
+    text-align: center;
+  }
   
   .hero-actions {
     flex-direction: column;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
+    margin: 1.25rem auto 0;
+    gap: 0.75rem;
   }
   
   .hero-actions .btn {
     width: 100%;
     text-align: center;
-  }
-  
-  .text-3 {
-    padding: 0 1rem;
-    align-items: center;
-    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
 }
 
 @media (max-width: 480px) {
-  .gradient-text { font-size: 3rem; }
-  .text-3 .gradient-text { font-size: 2.25rem; }
-  .cinematic-text p { letter-spacing: 0.1em; }
-  .hero-eyebrow { font-size: 0.875rem; letter-spacing: 0.1em; }
+  .cinematic-text {
+    padding: 0 0.75rem;
+  }
+
+  .gradient-text {
+    font-size: clamp(2rem, 11vw, 3.25rem);
+  }
+
+  .text-3 .gradient-text {
+    font-size: clamp(1.6rem, 7.5vw, 2.5rem);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-actions {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 320px) {
+  .gradient-text {
+    font-size: 1.85rem;
+  }
+
+  .cinematic-text p {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+  }
 }

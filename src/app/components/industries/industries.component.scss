@@ -160,12 +160,14 @@
 @media (max-width: 992px) {
   .industries-split {
     flex-direction: column;
+    overflow-x: clip;
   }
   
   .split-left, .split-right {
     flex: none;
     width: 100%;
-    padding: 4rem 2rem;
+    box-sizing: border-box;
+    padding: 3.5rem 1.5rem;
   }
   
   .sticky-content {
@@ -174,6 +176,24 @@
   }
   
   .section-title {
-    font-size: 2.5rem;
+    font-size: clamp(1.85rem, 6vw, 2.5rem);
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .split-left, .split-right {
+    padding: 2.5rem 15px;
+  }
+
+  .btn-lg {
+    width: 100%;
+    text-align: center;
+    padding: 0.85rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .industry-card {
+    min-height: 320px;
   }
 }
