@@ -1,0 +1,26 @@
+{
+  "name": "provex-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Provex contact form and notifications",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "server": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test:email": "node src/utils/test-email.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
