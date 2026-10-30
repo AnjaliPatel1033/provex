@@ -175,6 +175,9 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
     ctx.save();
     ctx.scale(dpr, dpr);
 
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
     // Compute cover dimensions
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = width / height;
