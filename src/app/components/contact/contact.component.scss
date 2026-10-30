@@ -19,6 +19,50 @@
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+/* Alert Banner */
+.alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+
+  &.error-banner {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+  }
+
+  .alert-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .alert-icon {
+    font-size: 1rem;
+  }
+
+  .alert-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: #991b1b;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .form-row {
@@ -43,6 +87,13 @@ label {
   color: #ef4444; 
 }
 
+.optional-tag {
+  color: var(--text-muted, #94a3b8);
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-left: 0.25rem;
+}
+
 input, select, textarea {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-color);
@@ -52,17 +103,81 @@ input, select, textarea {
   font-size: 0.95rem;
   color: var(--text-main);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   
   &:focus {
     border-color: var(--primary);
+  }
+
+  &.is-invalid {
+    border-color: #ef4444;
+    background-color: #fffaf0;
+  }
+}
+
+/* Phone input group with country code */
+.phone-input-group {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+
+  &:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 1px var(--primary);
+  }
+
+  &.is-invalid {
+    border-color: #ef4444 !important;
+    background-color: #fffaf0;
+  }
+
+  .country-code-wrapper {
+    background-color: #f8fafc;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+
+    .country-code-select {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-main);
+      cursor: pointer;
+      outline: none;
+      border-radius: 0;
+
+      &:focus {
+        border-color: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .phone-digits-input {
+    border: none;
+    border-radius: 0;
+    flex: 1;
+    padding: 0.75rem 0.85rem;
+    min-width: 0;
+    background: transparent;
+
+    &:focus {
+      border-color: transparent;
+      box-shadow: none;
+    }
   }
 }
 
 textarea {
   resize: vertical;
   min-height: 120px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .select-wrapper select {
@@ -71,17 +186,68 @@ textarea {
 
 .submit-btn {
   width: auto;
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.75rem;
+  transition: all 0.2s ease;
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    filter: grayscale(20%);
+  }
+}
+
+.submitting-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .error-msg {
   color: #ef4444;
   font-size: 0.75rem;
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
+  line-height: 1.2;
 }
 
 .success-message {
   text-align: center;
-  padding: 2rem 0;
+  padding: 2.5rem 1rem;
+
+  h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
+    color: var(--text-main);
+  }
+
+  p {
+    color: var(--text-muted, #64748b);
+    margin-bottom: 2rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
 }
 
 .success-icon {
@@ -93,8 +259,9 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.25rem;
   font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -110,5 +277,9 @@ textarea {
   .form-row {
     flex-direction: column;
     gap: 1.25rem;
+  }
+
+  .submit-btn {
+    width: 100%;
   }
 }
