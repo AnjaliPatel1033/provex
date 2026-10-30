@@ -34,10 +34,10 @@ export class HeaderComponent implements OnInit {
       
       if (scrollEnd > 0) {
         const progress = -rect.top / scrollEnd;
-        // Glass-door styling activates as hero reaches completion (Phase 3 at 0.70+) and beyond
-        this.isScrolled = progress >= 0.70;
+        // Switches to light-mode glass only when scrolling out of the dark hero into the white page sections
+        this.isScrolled = progress >= 0.98 || rect.bottom <= window.innerHeight + 40;
       } else {
-        this.isScrolled = rect.bottom <= window.innerHeight;
+        this.isScrolled = rect.bottom <= window.innerHeight + 40;
       }
     } else {
       this.isScrolled = window.scrollY > 300;
