@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5000/api'
+  production: true,
+  apiUrl: 'https://provex-zzt0.onrender.com/api'
 };

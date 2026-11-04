@@ -1,5 +1,6 @@
 const contactService = require('../services/contact.service');
 const emailService = require('../services/email.service');
+const { isDatabaseConnected } = require('../config/db');
 
 /**
  * Handles incoming contact form submission.
@@ -60,10 +61,12 @@ const submitContactForm = async (req, res, next) => {
  */
 const getContactHealth = async (req, res, next) => {
   try {
-    res.json({
-      success: true,
+    const databaseConnected = isDatabaseConnected();
+    res.status(databaseConnected ? 200 : 503).json({
+      success: databaseConnected,
       service: 'Provex Contact API',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      ...(databaseConnected ? {} : { message: 'Database unavailable' })
     });
   } catch (error) {
     next(error);
