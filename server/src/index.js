@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { connectDB, isDatabaseConnected } = require('./config/db');
 const contactRoutes = require('./routes/contact.routes');
+const adminRoutes = require('./routes/admin.routes');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -39,7 +40,7 @@ app.use(
       }
       return callback(null, false);
     },
-    methods: ['GET', 'POST', 'OPTIONS'],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
   })
@@ -51,6 +52,7 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // 4. API Routes
 app.use('/api/contact', contactRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check root
 app.get('/', (req, res) => {

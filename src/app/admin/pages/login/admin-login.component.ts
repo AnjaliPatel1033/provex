@@ -1,0 +1,17 @@
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AdminAuthService } from '../../services/admin-auth.service';
+
+@Component({
+  standalone: true, imports: [CommonModule, ReactiveFormsModule],
+  template: `<main class="login-wrap"><section class="login-card"><a class="brand"><span class="mark">P</span><span>PROVEX <small>INDUSTRIES</small></span></a><div class="eyebrow">ADMINISTRATOR ACCESS</div><h1>Welcome back</h1><p>Sign in to manage customer inquiries.</p><form [formGroup]="form" (ngSubmit)="submit()"><label>Email address<input type="email" formControlName="email" autocomplete="username" placeholder="admin@provex.com"></label><label>Password<input type="password" formControlName="password" autocomplete="current-password" placeholder="Enter your password"></label><div class="error" *ngIf="error">{{error}}</div><button [disabled]="form.invalid || busy">{{busy ? 'Signing in…' : 'Sign in to dashboard'}} <span>→</span></button></form><footer>Secure administrator portal <i>•</i> Provex Industries</footer></section></main>`,
+  styles: [`:host{display:block;min-height:100vh;font:14px Inter,Arial,sans-serif;color:#17283d}.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#10243b 0%,#1a3654 52%,#edf1f5 52%,#f6f7f9 100%)}.login-card{background:white;width:min(100%,440px);padding:44px 42px;box-shadow:0 24px 70px #0b1c3028}.brand{display:flex;gap:11px;align-items:center;color:#10243b;font-weight:800;letter-spacing:1px;margin-bottom:48px}.brand small{display:block;color:#8491a1;font-size:9px;letter-spacing:2px;margin-top:2px}.mark{width:38px;height:38px;background:#e8953e;display:grid;place-items:center;font-size:21px}.eyebrow{color:#d7812a;font-size:10px;font-weight:800;letter-spacing:1.5px}h1{font-size:28px;margin:10px 0 7px;color:#142840}p{margin:0 0 28px;color:#778596}form{display:grid;gap:18px}label{font-size:12px;font-weight:700;color:#34475d}input{display:block;margin-top:8px;width:100%;height:46px;border:1px solid #dbe2ea;padding:0 13px;font:14px inherit;outline:none}input:focus{border-color:#315f8f;box-shadow:0 0 0 3px #315f8f18}button{height:48px;border:0;background:#102c49;color:white;font-weight:700;cursor:pointer;margin-top:3px}button:disabled{opacity:.6}.error{color:#b63838;background:#fff1f1;padding:10px;font-size:12px}button span{float:right;margin-right:15px}footer{border-top:1px solid #edf0f4;margin-top:30px;padding-top:18px;color:#8995a3;font-size:11px}footer i{font-style:normal;padding:0 6px;color:#e8953e}@media(max-width:480px){.login-card{padding:34px 25px}}`]
+})
+export class AdminLoginComponent {
+  private readonly fb = inject(FormBuilder); private readonly auth = inject(AdminAuthService); private readonly router = inject(Router);
+  form = this.fb.nonNullable.group({ email: ['', [Validators.required, Validators.email]], password: ['', Validators.required] });
+  busy = false; error = '';
+  submit(): void { if (this.form.invalid || this.busy) return; this.busy = true; this.error = ''; this.auth.login(this.form.getRawValue().email, this.form.getRawValue().password).subscribe({ next: () => { this.busy = false; void this.router.navigate(['/admin/dashboard']); }, error: err => { this.busy = false; this.error = err.error?.message || 'Unable to sign in. Please try again.'; } }); }
+}

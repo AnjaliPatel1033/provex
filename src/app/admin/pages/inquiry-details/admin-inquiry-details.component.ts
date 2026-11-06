@@ -1,0 +1,14 @@
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { AdminInquiryService, Inquiry } from '../../services/admin-inquiry.service';
+
+@Component({
+  standalone: true, imports: [CommonModule, DatePipe, RouterLink],
+  template: `<a routerLink="/admin/inquiries" class="back">← Back to inquiries</a><div *ngIf="loading" class="empty">Loading inquiry…</div><div *ngIf="error" class="error">{{error}}</div><ng-container *ngIf="item"><div class="heading"><div><div class="eyebrow">INQUIRY DETAILS</div><h1>{{item.subject}}</h1><p>Received {{item.createdAt | date:'MMMM d, y · h:mm a'}}</p></div><span class="badge">{{item.status}}</span></div><div class="grid"><section class="panel"><div class="panel-head">Message</div><div class="message">{{item.message}}</div></section><section class="panel"><div class="panel-head">Customer information</div><dl><dt>Full name</dt><dd>{{item.fullName}}</dd><dt>Email address</dt><dd><a [href]="'mailto:'+item.email">{{item.email}}</a></dd><dt>Phone number</dt><dd><a [href]="'tel:'+item.phoneNumber">{{item.phoneNumber}}</a></dd><ng-container *ngIf="item.company"><dt>Company</dt><dd>{{item.company}}</dd></ng-container></dl></section></div></ng-container>`,
+  styles: [`:host{font:14px Inter,Arial,sans-serif;color:#17283d}.back{display:inline-block;color:#346d9e;font-weight:700;font-size:12px;margin-bottom:26px}.heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.eyebrow{font-size:10px;color:#ce7a27;letter-spacing:1.5px;font-weight:800}h1{font-size:26px;margin:7px 0;color:#142840}p{color:#8290a0;margin:0}.badge{padding:7px 11px;background:#edf2f6;color:#50667d;border-radius:14px;font-size:11px}.grid{display:grid;grid-template-columns:1.5fr 1fr;gap:16px}.panel{background:white;border:1px solid #e8edf2}.panel-head{padding:17px 20px;border-bottom:1px solid #edf0f3;font-weight:700;color:#30465d}.message{padding:22px;line-height:1.8;color:#526477;white-space:pre-wrap;min-height:180px}dl{padding:18px 20px;margin:0}dt{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#8b98a5;margin-top:13px}dt:first-child{margin-top:0}dd{margin:5px 0 0;color:#34495e}dd a{color:#2d6c9e}.empty,.error{padding:24px;color:#8895a2}.error{color:#a53535}@media(max-width:700px){.grid{grid-template-columns:1fr}.heading{align-items:flex-start;gap:10px;flex-direction:column}}`]
+})
+export class AdminInquiryDetailsComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute); private readonly api = inject(AdminInquiryService); item?: Inquiry; loading = true; error = '';
+  ngOnInit(): void { this.api.inquiry(this.route.snapshot.paramMap.get('id') || '').subscribe({ next: (res: any) => { this.item = res.data; this.loading = false; }, error: err => { this.error = err.error?.message || 'Unable to load inquiry.'; this.loading = false; } }); }
+}
